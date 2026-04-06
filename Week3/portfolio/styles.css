@@ -1,0 +1,173 @@
+/* universal selector */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --base: #FFFFFF;
+    --borderColor: #0A2647;
+    --cardColors: rgba(10, 38, 71, 0.9);
+    --accentColor: #E94560;
+    color: white;
+    font-family: "Space Mono", monospace;
+}
+
+/* body has a background color */
+body {
+    background-color: #0F3460;
+    background-image:
+        linear-gradient(30deg, #0A2647 12%, transparent 12.5%, transparent 87%, #0A2647 87.5%, #0A2647),
+        linear-gradient(150deg, #0A2647 12%, transparent 12.5%, transparent 87%, #0A2647 87.5%, #0A2647),
+        linear-gradient(30deg, #0A2647 12%, transparent 12.5%, transparent 87%, #0A2647 87.5%, #0A2647),
+        linear-gradient(150deg, #0A2647 12%, transparent 12.5%, transparent 87%, #0A2647 87.5%, #0A2647),
+        linear-gradient(60deg, #0D2D52 25%, transparent 25.5%, transparent 75%, #0D2D52 75%, #0D2D52),
+        linear-gradient(60deg, #0D2D52 25%, transparent 25.5%, transparent 75%, #0D2D52 75%, #0D2D52);
+    background-size: 40px 70px;
+    background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+    font-family: "Space Mono", monospace;
+    color: var(--accentColor);
+    font-size: 32px;
+    font-weight: 700;
+    width: 100%;
+}
+
+header::first-letter {
+    font-size: 48px;
+}
+
+.title {
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 72px;
+    margin-bottom: 48px;
+    line-height: 84px;
+    width: 100%;
+}
+
+
+/* card has border-radius of 12px, card has padding of 36px */
+.card {
+    width: 500px;
+    height: 750px;
+    background-color: var(--cardColors);
+    padding: 36px;
+    border-radius: 12px;
+    box-shadow: 8px 8px 24px rgba(0, 0, 0, 0.5);
+    margin-bottom: 48px;
+    transition: all 500ms;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: 8px 8px var(--accentColor);
+}
+
+.card > img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* h1 with custom font and color */
+h1 {
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: var(--accentColor);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* p element with font size smaller than h1 */
+p {
+    color: #B0C4DE;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* pseudo classes used for styling */
+a {
+    text-decoration: none;
+}
+
+button {
+    background-color: var(--accentColor);
+    color: white;
+    border: 2px solid var(--accentColor);
+    padding: 12px 32px;
+    font-family: "Space Mono", monospace;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+/* hover state */
+button:hover {
+    background-color: transparent;
+    color: var(--accentColor);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+h2 {
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 36px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 3px 2px 0px var(--accentColor);
+}
+
+h3 {
+    color: #FFF;
+    font-family: "Space Mono", monospace;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+footer {
+    margin-top: 48px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    width: 100%;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.8s ease forwards;
+}
