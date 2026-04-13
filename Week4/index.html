@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music</title>
+  <style>
+
+    :root {
+      font-size: 16px;
+    }
+
+    body {
+      background-color: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background-color: #000;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* 4 buttons equally spaced with flexbox */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    nav button {
+      background-color: transparent;
+      border: 2px solid #e94560;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    nav button:hover {
+      background-color: #e94560;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: #e94560;
+      margin: 0;
+    }
+
+    header p {
+      color: #888;
+      font-size: 1.1rem;
+    }
+
+    /* 2 columns */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, auto);
+      gap: 20px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* image row and info row */
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .card-info span {
+      color: #e94560;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .card-info h2 {
+      font-size: 1.2rem;
+      margin: 8px 0;
+    }
+
+    .card-info p {
+      color: #888;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .card-info button {
+      margin-top: 10px;
+      background-color: #e94560;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #555;
+      font-size: 0.85rem;
+      border-top: 1px solid #222;
+    }
+
+    /* screens 720px or smaller */
+    @media (max-width: 720px) {
+      :root {
+        font-size: 12px;
+      }
+
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-buttons">
+      <button>Home</button>
+      <button>Popular</button>
+      <button>Artists</button>
+      <button>Library</button>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Music</h1>
+    <p> List of playlists for every mood</p>
+  </header>
+
+  <div class="grid-container">
+
+    <div class="card">
+      <img src="assets/lofi.avif" alt="Late Night Study" />
+      <div class="card-info">
+        <span>Lo-Fi</span>
+        <h2>Late Night Study</h2>
+        <p>Chill beats to focus - 42 tracks</p>
+        <button>&#9654; Play</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/street-anthem.jpg" alt="Street Anthems" />
+      <div class="card-info">
+        <span>Hip-Hop</span>
+        <h2>Street Anthems</h2>
+        <p>Hard-hitting bars - 35 tracks</p>
+        <button>&#9654; Play</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/electronic.jpg" alt="Neon Nights" />
+      <div class="card-info">
+        <span>Electronic</span>
+        <h2>Neon Nights</h2>
+        <p>Synthwave &amp; EDM bangers - 50 tracks</p>
+        <button>&#9654; Play</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/jazz.jpg" alt="Sunday Morning Jazz" />
+      <div class="card-info">
+        <span>Jazz</span>
+        <h2>Sunday Morning</h2>
+        <p>Smooth jazz for slow mornings - 28 tracks</p>
+        <button>&#9654; Play</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer> 2026 </footer>
+
+</body>
+</html>
