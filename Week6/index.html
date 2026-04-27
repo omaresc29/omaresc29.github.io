@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lakers Game Tracker</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; 
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #552583 0%, #2a1245 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    .container { max-width: 850px; margin: 0 auto; }
+
+    .header { text-align: center; margin-bottom: 25px; }
+    .header h1 {
+      font-size: 2.5rem;
+      color: #FDB927;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 0 #000;
+    }
+    #gameDay { margin-top: 8px; font-size: 1.1rem; opacity: 0.85; }
+
+    .scoreboard {
+      background: #000;
+      border: 3px solid #FDB927;
+      border-radius: 12px;
+      padding: 25px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    .team { text-align: center; }
+    .team-name { font-size: 1.4rem; font-weight: bold; color: #FDB927; margin-bottom: 8px; }
+    .score { font-size: 4rem; font-weight: bold; color: #fff; font-family: 'Courier New', monospace; }
+    .vs { font-size: 1.5rem; color: #FDB927; font-weight: bold; }
+
+    .card {
+      background: rgba(0, 0, 0, 0.4);
+      border: 2px solid #FDB927;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card h2 { color: #FDB927; margin-bottom: 15px; font-size: 1.3rem; }
+
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    button {
+      background: #FDB927;
+      color: #552583;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.2s;
+    }
+    button:hover { background: #fff; transform: translateY(-2px); }
+
+    .reset-btn { background: #c41e3a; color: #fff; }
+    .reset-btn:hover { background: #fff; color: #c41e3a; }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 2px solid #FDB927;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #fff;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .roster {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .player {
+      background: #552583;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .player:hover {
+      background: #FDB927;
+      color: #552583;
+      border-color: #fff;
+      transform: scale(1.05);
+    }
+    .player-name { font-weight: bold; font-size: 1.1rem; }
+    .player-num { font-size: 0.9rem; opacity: 0.8; }
+
+    #playerStats {
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(253, 185, 39, 0.15);
+      border-left: 4px solid #FDB927;
+      border-radius: 6px;
+      min-height: 60px;
+    }
+    .stat-line { margin-top: 5px; color: #FDB927; font-weight: bold; }
+
+    .winner-msg {
+      text-align: center;
+      font-size: 1.3rem;
+      color: #FDB927;
+      margin-bottom: 20px;
+      font-weight: bold;
+      min-height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <h1>LAKERS GAME TRACKER </h1>
+      <div id="gameDay">Game day</div>
+    </div>
+
+    <div class="scoreboard">
+      <div class="team">
+        <div class="team-name">LAKERS</div>
+        <div class="score" id="lakersScore">0</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="team">
+        <div class="team-name" id="opponentName">OPPONENT</div>
+        <div class="score" id="opponentScore">0</div>
+      </div>
+    </div>
+
+    <div class="winner-msg" id="winnerMsg"></div>
+
+    <div class="card">
+      <h2>Lakers Scoring</h2>
+      <div class="btn-row">
+        <button class="score-btn" data-points="1">+1 Free Throw</button>
+        <button class="score-btn" data-points="2">+2 Field Goal</button>
+        <button class="score-btn" data-points="3">+3 Three Pointer</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Opponent Scoring</h2>
+      <div class="btn-row">
+        <button class="opp-btn" data-points="1">+1</button>
+        <button class="opp-btn" data-points="2">+2</button>
+        <button class="opp-btn" data-points="3">+3</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Set Opponent Name</h2>
+      <input type="text" id="opponentInput" placeholder="Enter opponent team name..." maxlength="15" />
+    </div>
+
+    <div class="card">
+      <h2>Roster (hover for stats)</h2>
+      <div class="roster">
+        <div class="player" data-stats="PPG: 25.4 | RPG: 7.9 | APG: 8.1">
+          <div class="player-name">LeBron James</div>
+          <div class="player-num">#23 - F</div>
+        </div>
+        <div class="player" data-stats="PPG: 23.8 | RPG: 12.5 | APG: 3.5">
+          <div class="player-name">Luka Dončić</div>
+          <div class="player-num">#3 - F/C</div>
+        </div>
+        <div class="player" data-stats="PPG: 18.2 | RPG: 4.1 | APG: 6.8">
+          <div class="player-name">Austin Reaves</div>
+          <div class="player-num">#15 - G</div>
+        </div>
+        <div class="player" data-stats="PPG: 17.5 | RPG: 3.2 | APG: 4.9">
+          <div class="player-name">Bronny James</div>
+          <div class="player-num">#1 - G</div>
+        </div>
+      </div>
+      <div id="playerStats">Hover over a player to see their stats.</div>
+    </div>
+
+    <div class="card">
+      <h2>Game Controls</h2>
+      <button class="reset-btn" id="resetBtn">Reset Game</button>
+    </div>
+
+  </div>
+
+  <script>
+    // To load event to show today's date as game day 
+    window.addEventListener('load', function () {
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                      'July', 'August', 'September', 'October', 'November', 'December'];
+      const now = new Date();
+      const dateStr = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+      document.getElementById('gameDay').textContent = ' Game Day: ' + dateStr;
+    });
+
+    // For score state
+    let lakersScore = 0;
+    let opponentScore = 0;
+    const lakersDisplay = document.getElementById('lakersScore');
+    const opponentDisplay = document.getElementById('opponentScore');
+    const winnerMsg = document.getElementById('winnerMsg');
+
+    function updateScores() {
+      lakersDisplay.textContent = lakersScore;
+      opponentDisplay.textContent = opponentScore;
+      if (lakersScore === 0 && opponentScore === 0) {
+        winnerMsg.textContent = '';
+      } else if (lakersScore > opponentScore) {
+        winnerMsg.textContent = 'Lakers leading by ' + (lakersScore - opponentScore);
+      } else if (opponentScore > lakersScore) {
+        winnerMsg.textContent = 'Lakers down by ' + (opponentScore - lakersScore);
+      } else {
+        winnerMsg.textContent = 'Tied game';
+      }
+    }
+
+    // Click for events on Lakers scoring buttons 
+    const scoreButtons = document.querySelectorAll('.score-btn');
+    scoreButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        lakersScore += parseInt(btn.getAttribute('data-points'));
+        updateScores();
+      });
+    });
+
+    // Click events on opponent for scoring buttons 
+    const oppButtons = document.querySelectorAll('.opp-btn');
+    oppButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        opponentScore += parseInt(btn.getAttribute('data-points'));
+        updateScores();
+      });
+    });
+
+    //Input event on opponent name field 
+    const opponentInput = document.getElementById('opponentInput');
+    const opponentName = document.getElementById('opponentName');
+    opponentInput.addEventListener('input', function () {
+      const name = opponentInput.value.trim().toUpperCase();
+      opponentName.textContent = name === '' ? 'OPPONENT' : name;
+    });
+
+    // Mouseover events on players 
+    const players = document.querySelectorAll('.player');
+    const playerStats = document.getElementById('playerStats');
+    players.forEach(function (player) {
+      player.addEventListener('mouseover', function () {
+        const name = player.querySelector('.player-name').textContent;
+        const stats = player.getAttribute('data-stats');
+        playerStats.innerHTML = '<strong>' + name + '</strong><div class="stat-line">' + stats + '</div>';
+      });
+      player.addEventListener('mouseout', function () {
+        playerStats.innerHTML = 'Hover over a player to see their stats.';
+      });
+    });
+
+    // To reset button for click event
+    const resetBtn = document.getElementById('resetBtn');
+    resetBtn.addEventListener('click', function () {
+      lakersScore = 0;
+      opponentScore = 0;
+      updateScores();
+      opponentInput.value = '';
+      opponentName.textContent = 'OPPONENT';
+    });
+  </script>
+</body>
+</html>
